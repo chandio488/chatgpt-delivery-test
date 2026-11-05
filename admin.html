@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ایڈمن — WORLD NEWS DESK (آزمائشی)</title>
+<style>
+:root{--navy:#071c38;--navy2:#0b2a52;--gold:#d9a92c;--ink:#16233a;--mut:#5b6b84;--bg:#eef2f8;--line:#dde4ef;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:"Noto Nastaliq Urdu","Jameel Noori Nastaleeq",Tahoma,sans-serif;background:var(--bg);color:var(--ink);line-height:2;font-size:15px;}
+header{background:linear-gradient(150deg,#04122a,var(--navy2));color:#fff;padding:16px;}
+header .t{font-size:21px;font-weight:700;}
+header .s{color:#f2c94c;font-size:13px;}
+.wrap{max-width:900px;margin:0 auto;padding:16px 14px 30px;}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-bottom:14px;}
+h2{font-size:18px;color:var(--navy);margin-bottom:8px;}
+.note{background:#fdf3d3;border:1px solid #ecd27a;border-radius:10px;padding:8px 12px;font-size:13.5px;margin-bottom:14px;}
+table{width:100%;border-collapse:collapse;font-size:14px;}
+th,td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:right;vertical-align:top;}
+th{color:var(--navy);}
+select,button{font-family:inherit;font-size:14px;}
+.btn{border:none;cursor:pointer;border-radius:99px;padding:2px 16px;background:var(--navy2);color:#fff;}
+.btn.gold{background:var(--gold);color:#231a02;font-weight:700;}
+.btn.ghost{background:#eef2f8;color:var(--navy2);border:1px solid var(--line);}
+.badge{border-radius:99px;padding:0 10px;font-size:12.5px;font-weight:700;}
+.badge.published{background:#e3f5ec;color:#1d9e6c;}
+.badge.pending{background:#e8edf5;color:var(--mut);}
+.badge.cancelled{background:#f3e3e3;color:#9e2b2b;}
+.rotrow{display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px dashed var(--line);}
+.rotrow:last-child{border-bottom:none;}
+.rotrow .n{flex:1;}
+.small{color:var(--mut);font-size:13px;}
+a{color:var(--navy2);}
+</style>
+</head>
+<body>
+<header>
+  <div class="t">ایڈمن ڈیش بورڈ — <span dir="ltr">WORLD NEWS DESK</span></div>
+  <div class="s">آزمائشی ایڈمن — صرف ٹیسٹ ماحول</div>
+</header>
+<div class="wrap">
+  <div class="note">
+    یہ آزمائشی ایڈمن پینل ہے: یہاں کی تبدیلیاں (بلیٹن کی حیثیت، اداروں کی گردش) صرف اسی براؤزر میں
+    <b>localStorage</b> میں محفوظ ہوتی ہیں اور عوامی صفحے پر اسی براؤزر میں نظر آتی ہیں۔
+    اصل تعیناتی میں ایڈمن سرور پر محفوظ ہوگا اور ہر تبدیلی منظوری و تصدیق کے ساتھ لاگو ہوگی۔
+  </div>
+
+  <div class="card">
+    <h2>اداروں کی گردش — تفصیلی بلیٹن</h2>
+    <div class="small">ترتیب بدلیں؛ پہلا ادارہ دن کے پہلے تفصیلی سلاٹ سے لاگو ہوتا ہے۔</div>
+    <div id="rotList">لوڈ ہو رہا ہے…</div>
+    <div style="margin-top:10px"><button class="btn ghost" id="rotReset">اصل ترتیب بحال کریں</button></div>
+  </div>
+
+  <div class="card">
+    <h2>تمام بلیٹن — فہرست و حیثیت</h2>
+    <div style="overflow-x:auto">
+    <table>
+      <thead><tr><th>تاریخ / وقت</th><th>قسم</th><th>ادارہ</th><th>آڈیو</th><th>حیثیت</th><th>عمل</th></tr></thead>
+      <tbody id="tbody"><tr><td colspan="6">لوڈ ہو رہا ہے…</td></tr></tbody>
+    </table>
+    </div>
+    <div class="small" style="margin-top:8px">حیثیت بدلنے سے عوامی صفحے پر اسی براؤزر میں فوراً اثر پڑتا ہے (ٹیسٹ دائرہ کار)۔</div>
+  </div>
+
+  <div class="card">
+    <h2>ناکام جابز</h2>
+    <div id="failedJobs">جانچ جاری ہے…</div>
+  </div>
+
+  <div class="card">
+    <h2>نشریاتی کیفیت</h2>
+    <div id="streamStatus" class="small">—</div>
+    <div class="small">ٹیسٹ ساخت: نشریاتی شیڈول وزیٹر کے براؤزر میں چلتا ہے؛ اصل نظام میں یہی منطق سرور پر چلے گی، جس میں ڈپلیکیٹ نشریات کی روک تھام، خودکار دوبارہ رابطہ اور نشریاتی لاگ شامل ہوں گے۔</div>
+    <div style="margin-top:8px"><a href="index.html">← عوامی صفحہ دیکھیں</a></div>
+  </div>
+</div>
+
+<audio id="prev" preload="none"></audio>
+
+<script>
+"use strict";
+var MANIFEST = { bulletins: [], rotation: [] };
+var prev = document.getElementById("prev");
+function esc(s) { return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) {
+  return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+function overrides() { try { return JSON.parse(localStorage.getItem("wnd_status_overrides") || "{}"); } catch (e) { return {}; } }
+function effStatus(rec) { return overrides()[rec.id] || rec.status; }
+function setStatus(id, st) {
+  var o = overrides();
+  var rec = null;
+  for (var i = 0; i < MANIFEST.bulletins.length; i++) if (MANIFEST.bulletins[i].id === id) rec = MANIFEST.bulletins[i];
+  if (rec && rec.status === st) delete o[id]; else o[id] = st;
+  localStorage.setItem("wnd_status_overrides", JSON.stringify(o));
+}
+function typeLabel(t) { return t === "short" ? "مختصر" : "تفصیلی"; }
+
+function renderRotation() {
+  var rot;
+  try { rot = JSON.parse(localStorage.getItem("wnd_rotation") || "null") || MANIFEST.rotation.slice(); }
+  catch (e) { rot = MANIFEST.rotation.slice(); }
+  document.getElementById("rotList").innerHTML = rot.map(function (name, i) {
+    return '<div class="rotrow"><span>' + (i + 1) + '.</span><span class="n">' + esc(name) + '</span>' +
+      '<button class="btn ghost" data-up="' + i + '">▲ اوپر</button>' +
+      '<button class="btn ghost" data-dn="' + i + '">▼ نیچے</button></div>';
+  }).join("");
+  var save = function (r) { localStorage.setItem("wnd_rotation", JSON.stringify(r)); renderRotation(); };
+  var ups = document.querySelectorAll("[data-up]"), dns = document.querySelectorAll("[data-dn]");
+  for (var i = 0; i < ups.length; i++) ups[i].addEventListener("click", function () {
+    var k = +this.getAttribute("data-up"); if (k > 0) { var t = rot[k - 1]; rot[k - 1] = rot[k]; rot[k] = t; save(rot); } });
+  for (var j = 0; j < dns.length; j++) dns[j].addEventListener("click", function () {
+    var k = +this.getAttribute("data-dn"); if (k < rot.length - 1) { var t = rot[k + 1]; rot[k + 1] = rot[k]; rot[k] = t; save(rot); } });
+  document.getElementById("rotReset").onclick = function () { localStorage.removeItem("wnd_rotation"); renderRotation(); };
+}
+
+function renderTable() {
+  var tb = document.getElementById("tbody");
+  tb.innerHTML = MANIFEST.bulletins.map(function (b) {
+    var st = effStatus(b);
+    var opts = ["published", "pending", "cancelled"].map(function (s) {
+      return '<option value="' + s + '"' + (s === st ? " selected" : "") + '>' +
+        (s === "published" ? "شائع شدہ" : s === "pending" ? "زیرِ تیاری" : "منسوخ") + "</option>";
+    }).join("");
+    return "<tr><td>" + esc(b.date) + "<br>" + esc(b.time) + "</td><td>" + esc(typeLabel(b.type)) + "</td><td>" +
+      esc(b.organization) + (b.demo ? ' <span class="small">(نمونہ)</span>' : "") + "</td><td>" +
+      (b.audio ? '<span dir="ltr" class="small">' + esc(b.audio) + "</span>" : "—") + "</td>" +
+      '<td><span class="badge ' + st + '">' + st + '</span><br><select data-st="' + esc(b.id) + '">' + opts + "</select></td>" +
+      '<td><button class="btn gold" data-prev="' + esc(b.id) + '">▶ پیشگی سنیں</button></td></tr>';
+  }).join("");
+  var sels = tb.querySelectorAll("[data-st]");
+  for (var i = 0; i < sels.length; i++) sels[i].addEventListener("change", function () {
+    setStatus(this.getAttribute("data-st"), this.value); renderTable(); renderFailed();
+  });
+  var pbs = tb.querySelectorAll("[data-prev]");
+  for (var j = 0; j < pbs.length; j++) pbs[j].addEventListener("click", function () {
+    var rec = null;
+    for (var k = 0; k < MANIFEST.bulletins.length; k++) if (MANIFEST.bulletins[k].id === this.getAttribute("data-prev")) rec = MANIFEST.bulletins[k];
+    if (rec && rec.audio) { prev.src = rec.audio; prev.play().catch(function () {}); }
+  });
+}
+
+function renderFailed() {
+  var failed = MANIFEST.bulletins.filter(function (b) { return effStatus(b) === "cancelled"; });
+  document.getElementById("failedJobs").innerHTML =
+    '<div class="small">ناکام آڈیو جابز: کوئی نہیں۔</div>' +
+    (failed.length ? '<div class="small">منسوخ شدہ بلیٹن (نشریات سے خارج): ' + failed.map(function (b) { return esc(b.id); }).join("، ") + "</div>"
+                   : '<div class="small">منسوخ شدہ بلیٹن: کوئی نہیں۔</div>');
+}
+
+fetch("bulletins.json", { cache: "no-store" })
+  .then(function (r) { return r.json(); })
+  .then(function (j) {
+    MANIFEST = j; renderRotation(); renderTable(); renderFailed();
+    document.getElementById("streamStatus").textContent =
+      "مینی فیسٹ لوڈ ہو گیا — کل " + j.bulletins.length + " بلیٹن ریکارڈ، گردش میں " + (j.rotation || []).length + " ادارے۔";
+  })
+  .catch(function () { document.getElementById("tbody").innerHTML = '<tr><td colspan="6">مینی فیسٹ لوڈ نہیں ہو سکا</td></tr>'; });
+</script>
+</body>
+</html>

@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WORLD NEWS DESK — اردو سروس | آزمائشی نشریات</title>
+<style>
+:root{
+  --navy:#071c38; --navy2:#0b2a52; --navy3:#103a6e;
+  --gold:#d9a92c; --gold2:#f2c94c;
+  --red:#e02424; --ink:#16233a; --mut:#5b6b84;
+  --bg:#eef2f8; --card:#ffffff; --line:#dde4ef;
+  --green:#1d9e6c; --amber:#e8930c; --grey:#8a97ab;
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+body{
+  font-family:"Noto Nastaliq Urdu","Jameel Noori Nastaleeq","Urdu Typesetting",Tahoma,sans-serif;
+  background:var(--bg); color:var(--ink); line-height:2; font-size:16px;
+  -webkit-text-size-adjust:100%;
+}
+.ltr{direction:ltr; unicode-bidi:embed; font-family:Georgia,"Times New Roman",serif;}
+a{color:var(--navy3);}
+/* ---------- hero ---------- */
+.hero{
+  background:linear-gradient(160deg,#04122a 0%,var(--navy) 45%,var(--navy2) 100%);
+  color:#fff; padding:18px 16px 26px; position:relative; overflow:hidden;
+}
+.hero::after{content:""; position:absolute; inset:auto -20% -70% -20%; height:60%;
+  background:radial-gradient(ellipse at center, rgba(217,169,44,.20), transparent 65%);}
+.hero-in{max-width:860px; margin:0 auto; position:relative; z-index:1;}
+.brandrow{display:flex; align-items:center; justify-content:space-between; gap:10px;}
+.brand{text-align:right;}
+.brand .b1{font-size:26px; font-weight:700; letter-spacing:.5px; color:#fff; line-height:1.5;}
+.brand .b2{font-size:15px; color:var(--gold2); letter-spacing:3px; line-height:1.4;}
+.livebadge{
+  background:var(--red); color:#fff; border-radius:8px; padding:2px 14px;
+  font-weight:700; font-size:15px; display:inline-flex; align-items:center; gap:8px;
+  box-shadow:0 0 0 0 rgba(224,36,36,.5); animation:pulse 2s infinite;
+}
+.livebadge i{width:9px;height:9px;border-radius:50%;background:#fff;display:inline-block;}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(224,36,36,.45)}70%{box-shadow:0 0 0 12px rgba(224,36,36,0)}100%{box-shadow:0 0 0 0 rgba(224,36,36,0)}}
+.tagline{font-size:30px; font-weight:700; text-align:center; margin:16px 0 2px; line-height:1.9;}
+.tagline-sub{text-align:center; color:#c8d6ee; font-size:15px;}
+/* ---------- now playing ---------- */
+.nowcard{
+  margin-top:18px; background:linear-gradient(150deg, rgba(255,255,255,.10), rgba(255,255,255,.04));
+  border:1px solid rgba(255,255,255,.22); border-radius:16px; padding:16px;
+  backdrop-filter:blur(3px);
+}
+.nowcard .kicker{color:var(--gold2); font-size:13px; letter-spacing:1px;}
+.nowcard .prog{font-size:22px; font-weight:700; line-height:1.8;}
+.nowcard .org{color:#c8d6ee; font-size:15px;}
+.playrow{display:flex; align-items:center; gap:14px; margin-top:12px; flex-wrap:wrap;}
+.playbtn{
+  width:64px; height:64px; border-radius:50%; border:none; cursor:pointer; flex:0 0 auto;
+  background:var(--gold); color:#231a02; font-size:26px; display:flex; align-items:center; justify-content:center;
+  box-shadow:0 6px 18px rgba(0,0,0,.35);
+}
+.playbtn:active{transform:scale(.96);}
+.playmeta{flex:1; min-width:180px;}
+.pstate{font-size:15px; color:#fff;}
+.pstate .warn{color:#ffb4b4;} .pstate .ok{color:#9fe8c6;}
+.countdown{color:var(--gold2); font-size:15px;}
+.progress{height:6px; background:rgba(255,255,255,.18); border-radius:99px; margin-top:12px; overflow:hidden;}
+.progress i{display:block; height:100%; width:0%; background:var(--gold); border-radius:99px; transition:width .6s linear;}
+.clockline{margin-top:10px; color:#9fb4d8; font-size:13px; display:flex; justify-content:space-between; gap:8px; flex-wrap:wrap;}
+.standby-note{margin-top:8px; font-size:13px; color:#ffd9a8;}
+.repeat-banner{
+  margin-top:12px; background:var(--red); color:#fff; border-radius:10px;
+  padding:8px 12px; font-weight:700; font-size:17px; text-align:center; line-height:1.9;
+  box-shadow:0 4px 14px rgba(0,0,0,.35);
+}
+.repeat-banner small{display:block; font-weight:400; font-size:13.5px; color:#ffe1e1;}
+/* ---------- layout ---------- */
+.wrap{max-width:860px; margin:0 auto; padding:18px 14px 30px;}
+h2.sec{font-size:21px; color:var(--navy); margin:20px 2px 10px; display:flex; align-items:baseline; gap:10px;}
+h2.sec small{color:var(--mut); font-size:13px; font-weight:400;}
+.card{
+  background:var(--card); border:1px solid var(--line); border-radius:14px;
+  padding:14px 16px; margin-bottom:12px; box-shadow:0 2px 8px rgba(10,35,70,.05);
+}
+.card.live-now{border:2px solid var(--red);}
+.card.next{border:2px solid var(--gold);}
+.card.highlight{outline:3px solid var(--gold2); outline-offset:2px;}
+.card .top{display:flex; align-items:center; gap:10px; flex-wrap:wrap;}
+.time{font-size:20px; font-weight:700; color:var(--navy); font-family:Georgia,serif; direction:ltr;}
+.title{font-size:18px; font-weight:700;}
+.durbadge{background:#eef3ea; color:#33691e; border-radius:99px; padding:0 10px; font-size:13px;}
+.state{border-radius:99px; padding:0 12px; font-size:13px; font-weight:700;}
+.state.done{background:#e3f5ec; color:var(--green);}
+.state.live{background:#fde3e3; color:var(--red);}
+.state.next{background:#fdf3d3; color:#8a6100;}
+.state.soon{background:#e8edf5; color:var(--mut);}
+.state.cancel{background:#f3e3e3; color:#9e2b2b;}
+.orgline{color:var(--mut); font-size:14px;}
+.headlines{margin:8px 18px 4px 0; color:#2a3a56; font-size:15px;}
+.headlines li{margin-bottom:2px;}
+.src{color:var(--grey); font-size:12.5px; margin-top:6px;}
+.card .actions{display:flex; gap:10px; margin-top:10px; flex-wrap:wrap;}
+.btn{
+  border:none; cursor:pointer; border-radius:99px; padding:4px 20px; font-size:15px;
+  font-family:inherit; background:var(--navy2); color:#fff;
+}
+.btn.gold{background:var(--gold); color:#231a02; font-weight:700;}
+.btn.ghost{background:#eef2f8; color:var(--navy2); border:1px solid var(--line);}
+.btn:disabled{background:#cfd8e6; color:#77879e; cursor:not-allowed;}
+/* ---------- archive ---------- */
+.archrow{display:flex; align-items:center; gap:10px; padding:9px 4px; border-bottom:1px dashed var(--line); flex-wrap:wrap;}
+.archrow:last-child{border-bottom:none;}
+.archrow .t{font-family:Georgia,serif; direction:ltr; font-weight:700; color:var(--navy);}
+.archrow .n{flex:1; min-width:150px;}
+.archrow .n small{display:block; color:var(--mut); line-height:1.6;}
+.mini{border:none; cursor:pointer; border-radius:50%; width:38px; height:38px; background:var(--navy2); color:#fff; font-size:15px;}
+.mini.gold{background:var(--gold); color:#231a02;}
+.mini:disabled{background:#cfd8e6; cursor:not-allowed;}
+.empty{color:var(--mut); text-align:center; padding:14px;}
+footer{
+  background:var(--navy); color:#b9c9e4; text-align:center; padding:20px 14px; font-size:13.5px;
+}
+footer .fb{color:#fff; font-weight:700;}
+@media (max-width:520px){
+  .tagline{font-size:24px;} .brand .b1{font-size:21px;}
+  .nowcard .prog{font-size:19px;} .time{font-size:17px;}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-in">
+    <div class="brandrow">
+      <div class="brand">
+        <div class="b1 ltr">WORLD NEWS DESK</div>
+        <div class="b2 ltr">URDU SERVICE</div>
+      </div>
+      <span class="livebadge"><i></i><span class="ltr">LIVE</span></span>
+    </div>
+    <div class="tagline">دنیا بھر کی خبریں، اردو میں</div>
+    <div class="tagline-sub">عالمی سرخیاں • تازہ ترین خبریں • براہِ راست نشریات</div>
+
+    <div class="nowcard">
+      <div class="kicker" id="npKicker">اس وقت نشر ہونے والا پروگرام</div>
+      <div class="prog" id="npTitle">نشریاتی شیڈول لوڈ ہو رہا ہے…</div>
+      <div class="org" id="npOrg"></div>
+      <div class="playrow">
+        <button class="playbtn" id="btnLive" aria-label="براہِ راست سنیں">▶</button>
+        <div class="playmeta">
+          <div class="pstate" id="pState">براہِ راست نشریات سننے کے لیے پلے دبائیں</div>
+          <div class="countdown" id="pCountdown"></div>
+        </div>
+      </div>
+      <div class="progress"><i id="pBar"></i></div>
+      <div class="clockline">
+        <span id="pktClock">پاکستان وقت: —</span>
+        <span id="modeLabel">وضع: براہِ راست</span>
+      </div>
+      <div class="repeat-banner" id="repeatBanner" style="display:none"></div>
+      <div class="standby-note" id="standbyNote" style="display:none"></div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <h2 class="sec">آج کے نیوز بلیٹن <small>مقررہ نشریاتی اوقات — پاکستان وقت</small></h2>
+  <div id="todayList"><div class="empty">لوڈ ہو رہا ہے…</div></div>
+
+  <h2 class="sec">آئندہ نمونہ سلاٹ <small>اگلے دن کے مقررہ بلیٹن</small></h2>
+  <div id="futureList"><div class="empty">—</div></div>
+
+  <h2 class="sec">مزید بلیٹن — آرکائیو <small>نشر شدہ بلیٹن دوبارہ سنیں</small></h2>
+  <div class="card" id="archiveList"><div class="empty">—</div></div>
+</main>
+
+<footer>
+  <div class="fb">WORLD NEWS DESK — URDU SERVICE</div>
+  <div>یہ آزمائشی ویب سائٹ ہے — ٹیسٹ ماحول۔ اصل نشریات مالک کی منظوری کے بعد شروع ہوگی۔</div>
+  <div>تمام خبریں اصل ماخذ کے حوالے کے ساتھ ہماری اپنی اردو تلخیص میں پیش کی جاتی ہیں۔</div>
+</footer>
+
+<audio id="player" preload="none"></audio>
+
+<script>
+"use strict";
+/* ============ World News Desk — TEST site schedule engine (client-side) ============
+   NOTE: In this TEST build the schedule runs in the visitor's browser.
+   The production system will run the same slot logic on the server.        */
+var TZ = "Asia/Karachi";
+var SLOT_SEC = 1800; /* 30-minute slots: :00 short, :30 detailed */
+var MANIFEST = { bulletins: [], rotation: [] };
+var audio = document.getElementById("player");
+var mode = "idle";            /* idle | live | repeat | standby | replay */
+var livePlaying = false;
+var retried = false;
+var currentSlotKey = null;
+var backupSrc = "audio/backup-message.mp3";
+var replayRec = null;
+var repeatCycle = [];         /* REPEAT-FILL: [most recent detailed, most recent short] */
+var repeatIdx = 0;
+
+/* ---------- time helpers (all in Asia/Karachi) ---------- */
+/* ==PURE-BEGIN== */
+function pktParts(d) {
+  var parts = new Intl.DateTimeFormat("en-CA", { timeZone: TZ, hourCycle: "h23",
+    year: "numeric", month: "2-digit", day: "2-digit",
+    hour: "2-digit", minute: "2-digit", second: "2-digit" }).formatToParts(d);
+  var o = {};
+  for (var i = 0; i < parts.length; i++) o[parts[i].type] = parts[i].value;
+  return { date: o.year + "-" + o.month + "-" + o.day,
+           h: +o.hour, m: +o.minute, s: +o.second };
+}
+function pad2(n) { return (n < 10 ? "0" : "") + n; }
+function slotOf(p) {
+  var ssm = p.h * 3600 + p.m * 60 + p.s;
+  var idx = Math.floor(ssm / SLOT_SEC);
+  var startMin = idx * 30;
+  return { idx: idx, ssm: ssm, elapsed: ssm - idx * SLOT_SEC,
+           remain: SLOT_SEC - (ssm - idx * SLOT_SEC),
+           time: pad2(Math.floor(startMin / 60)) + ":" + pad2(startMin % 60),
+           type: (idx % 2 === 0) ? "short" : "detailed",
+           key: p.date + " " + pad2(Math.floor(startMin / 60)) + ":" + pad2(startMin % 60) };
+}
+function slotTimeStr(idx) { var m = idx * 30; return pad2(Math.floor(m / 60)) + ":" + pad2(m % 60); }
+function fmtDur(sec) {
+  sec = Math.max(0, Math.round(sec));
+  var m = Math.floor(sec / 60), s = sec % 60;
+  if (m >= 60) return Math.floor(m / 60) + " گھنٹہ " + (m % 60) + " منٹ";
+  return m + " منٹ" + (s ? " " + s + " سیکنڈ" : "");
+}
+function fmtClock(sec) { var m = Math.floor(sec / 60), s = Math.floor(sec % 60); return pad2(m) + ":" + pad2(s); }
+function typeLabel(t) { return t === "short" ? "مختصر بلیٹن" : "تفصیلی بلیٹن"; }
+function esc(s) { return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) {
+  return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+
+/* ---------- LIVE decision (pure) — REPEAT-FILL rule, owner order 2026-11-05 22:08 ----------
+   live   : the current slot has a published bulletin that is still inside its duration.
+   repeat : otherwise, cycle the most recent published detailed + most recent published
+            short (never a future-scheduled one), honestly labelled as a repeat.
+   standby: no published bulletin exists at all -> backup message only.            */
+function statusOf(rec, overrides) { return (overrides && overrides[rec.id]) || rec.status; }
+function mostRecentPublished(list, overrides, type, nowDate, nowTime) {
+  var best = null;
+  for (var i = 0; i < list.length; i++) {
+    var b = list[i];
+    if (!b || b.type !== type || !b.audio) continue;
+    if (statusOf(b, overrides) !== "published") continue;
+    if (b.date > nowDate || (b.date === nowDate && b.time > nowTime)) continue;
+    if (!best || b.date > best.date || (b.date === best.date && b.time > best.time)) best = b;
+  }
+  return best;
+}
+function liveDecision(p, slotRec, list, overrides) {
+  var slot = slotOf(p);
+  if (slotRec && slotRec.audio && statusOf(slotRec, overrides) === "published" &&
+      slot.elapsed < (slotRec.durationSec || 0)) {
+    return { kind: "live", rec: slotRec, offset: slot.elapsed, slot: slot };
+  }
+  var det = mostRecentPublished(list, overrides, "detailed", p.date, slot.time);
+  var sho = mostRecentPublished(list, overrides, "short", p.date, slot.time);
+  var cycle = [];
+  if (det) cycle.push(det);
+  if (sho) cycle.push(sho);
+  if (!cycle.length) return { kind: "standby", slot: slot };
+  return { kind: "repeat", cycle: cycle, slot: slot };
+}
+/* ==PURE-END== */
+
+/* ---------- data ---------- */
+function statusOverrides() {
+  try { return JSON.parse(localStorage.getItem("wnd_status_overrides") || "{}"); } catch (e) { return {}; }
+}
+function rotation() {
+  try {
+    var r = JSON.parse(localStorage.getItem("wnd_rotation") || "null");
+    if (r && r.length) return r;
+  } catch (e) {}
+  return MANIFEST.rotation || [];
+}
+function effStatus(rec) {
+  var o = statusOverrides();
+  return o[rec.id] || rec.status;
+}
+function recFor(date, time) {
+  for (var i = 0; i < MANIFEST.bulletins.length; i++) {
+    var b = MANIFEST.bulletins[i];
+    if (b.date === date && b.time === time) return b;
+  }
+  return null;
+}
+function slotRecord(date, idx) {
+  var time = slotTimeStr(idx);
+  var rec = recFor(date, time);
+  if (rec) return rec;
+  var rot = rotation();
+  var detIdx = Math.floor(idx / 2);
+  return { id: "gen-" + date + "-" + time, date: date, time: time,
+    type: (idx % 2 === 0) ? "short" : "detailed",
+    organization: (idx % 2 === 0) ? "WORLD NEWS DESK" : (rot.length ? rot[detIdx % rot.length] : "—"),
+    category: (idx % 2 === 0) ? "اہم سرخیاں" : "عالمی خبریں",
+    language: "ur", durationSec: (idx % 2 === 0) ? 120 : 600,
+    audio: "", status: "pending", headlines: [], sourceNote: "", demo: false };
+}
+
+/* ---------- player ---------- */
+function setState(html) { document.getElementById("pState").innerHTML = html; }
+function setModeLabel(t) { document.getElementById("modeLabel").textContent = "وضع: " + t; }
+function loadSrc(src, seekTo) {
+  retried = false;
+  audio.loop = false;
+  audio.src = src;
+  if (seekTo) {
+    var onMeta = function () { try { audio.currentTime = seekTo; } catch (e) {} audio.removeEventListener("loadedmetadata", onMeta); };
+    audio.addEventListener("loadedmetadata", onMeta);
+  }
+  var p = audio.play();
+  if (p && p.catch) p.catch(function () { setState('<span class="warn">آڈیو چل نہیں سکی — دوبارہ کوشش کریں</span>'); });
+}
+function hideRepeatBanner() { document.getElementById("repeatBanner").style.display = "none"; }
+function startLiveItem(rec, offset) {
+  mode = "live"; livePlaying = true;
+  document.getElementById("btnLive").textContent = "⏸";
+  setModeLabel("براہِ راست");
+  hideRepeatBanner();
+  document.getElementById("standbyNote").style.display = "none";
+  document.getElementById("npKicker").textContent = "اس وقت نشر ہونے والا پروگرام";
+  document.getElementById("npTitle").textContent = typeLabel(rec.type) + " — " + rec.time;
+  document.getElementById("npOrg").textContent = rec.organization + " • عالمی خبریں • اردو سروس";
+  setState('<span class="ok">● براہِ راست نشر ہو رہا ہے</span> — ' + esc(typeLabel(rec.type)));
+  loadSrc(rec.audio, offset);
+}
+/* REPEAT-FILL: cycle the latest published detailed, then the latest published
+   short, then back to the detailed — always under the repeat banner. */
+function startRepeat(dec) {
+  mode = "repeat"; livePlaying = true; replayRec = null;
+  repeatCycle = dec.cycle; repeatIdx = 0;
+  document.getElementById("btnLive").textContent = "⏸";
+  setModeLabel("دوبارہ نشر — ریپیٹ");
+  document.getElementById("standbyNote").style.display = "none";
+  startRepeatItem();
+}
+function startRepeatItem() {
+  var rec = repeatCycle[repeatIdx];
+  if (!rec) return;
+  var banner = document.getElementById("repeatBanner");
+  banner.style.display = "block";
+  banner.innerHTML = "دوبارہ نشر — ریپیٹ" +
+    "<small>" + esc(rec.time) + " والا " + esc(typeLabel(rec.type)) + " — " + esc(rec.organization) +
+    " • اصل نشریات: " + esc(rec.date) + " — " + esc(rec.time) + "</small>";
+  document.getElementById("npKicker").textContent = "دوبارہ نشر — ریپیٹ";
+  document.getElementById("npTitle").textContent = typeLabel(rec.type) + " — " + rec.time;
+  document.getElementById("npOrg").textContent = rec.organization + " • " + rec.date;
+  setState("دوبارہ نشر — ریپیٹ چل رہا ہے — اگلا تازہ بلیٹن مقررہ وقت پر آئے گا");
+  loadSrc(rec.audio, 0);
+}
+function advanceRepeat() {
+  if (!repeatCycle.length) return;
+  repeatIdx = (repeatIdx + 1) % repeatCycle.length;
+  startRepeatItem();
+}
+function routeLive() {
+  var p = pktParts(new Date());
+  var slot = slotOf(p);
+  var rec = slotRecord(p.date, slot.idx);
+  currentSlotKey = slot.key;
+  replayRec = null;
+  var dec = liveDecision(p, rec, MANIFEST.bulletins, statusOverrides());
+  if (dec.kind === "live") startLiveItem(rec, dec.offset);
+  else if (dec.kind === "repeat") startRepeat(dec);
+  else playStandby(rec);
+}
+function playLive() { routeLive(); }
+function playStandby(rec) {
+  mode = "standby"; livePlaying = true;
+  document.getElementById("btnLive").textContent = "⏸";
+  setModeLabel("انتظار — اگلا بلیٹن");
+  hideRepeatBanner();
+  var note = document.getElementById("standbyNote");
+  note.style.display = "block";
+  note.textContent = "اس وقت کوئی بلیٹن دستیاب نہیں — متبادل پیغام چل رہا ہے، اگلا بلیٹن مقررہ وقت پر خودکار شروع ہوگا۔";
+  setState("اس وقت کوئی بلیٹن دستیاب نہیں — اگلے بلیٹن کا انتظار کریں");
+  retried = false;
+  audio.loop = true;
+  audio.src = backupSrc;
+  var pr = audio.play();
+  if (pr && pr.catch) pr.catch(function () {
+    setState('<span class="warn">متبادل آڈیو بھی دستیاب نہیں — اگلے بلیٹن کا انتظار کریں</span>');
+  });
+}
+function playReplay(rec) {
+  if (effStatus(rec) !== "published" || !rec.audio) return;
+  mode = "replay"; replayRec = rec; livePlaying = false;
+  document.getElementById("btnLive").textContent = "▶";
+  setModeLabel("دوبارہ سنیں");
+  hideRepeatBanner();
+  document.getElementById("standbyNote").style.display = "none";
+  document.getElementById("npKicker").textContent = "دوبارہ سنیں — یہ براہِ راست نشریات نہیں ہے";
+  document.getElementById("npTitle").textContent = typeLabel(rec.type) + " — " + rec.time;
+  document.getElementById("npOrg").textContent = rec.organization + " • " + rec.date;
+  setState("دوبارہ سنایا جا رہا ہے — شروع سے");
+  loadSrc(rec.audio, 0);
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+function stopAll() {
+  audio.pause(); mode = "idle"; livePlaying = false; replayRec = null;
+  hideRepeatBanner();
+  document.getElementById("btnLive").textContent = "▶";
+  setState("براہِ راست نشریات سننے کے لیے پلے دبائیں");
+  setModeLabel("براہِ راست");
+}
+document.getElementById("btnLive").addEventListener("click", function () {
+  if (mode === "live" || mode === "repeat" || mode === "standby") { stopAll(); return; }
+  playLive();
+});
+audio.addEventListener("waiting", function () { setState("لوڈ ہو رہا ہے… (بفرنگ)"); });
+audio.addEventListener("playing", function () {
+  if (mode === "live") setState('<span class="ok">● براہِ راست نشر ہو رہا ہے</span>');
+  if (mode === "repeat") setState("دوبارہ نشر — ریپیٹ چل رہا ہے — اگلا تازہ بلیٹن مقررہ وقت پر آئے گا");
+  if (mode === "replay") setState("دوبارہ سنایا جا رہا ہے — شروع سے");
+});
+audio.addEventListener("ended", function () {
+  if (mode === "live") { routeLive(); return; }        /* slot bulletin ended early -> REPEAT-FILL (standby only if archive empty) */
+  if (mode === "repeat") { advanceRepeat(); return; }  /* cycle: detailed -> short -> detailed … */
+  if (mode === "replay") { setState("دوبارہ سننا مکمل ہوا"); setModeLabel("براہِ راست"); mode = "idle"; }
+});
+audio.addEventListener("error", function () {
+  if (!audio.src) return;
+  if (!retried) { retried = true; setState("رابطے میں خلل — دوبارہ کوشش کی جا رہی ہے…"); var s = audio.src; audio.src = ""; audio.src = s; var p = audio.play(); if (p && p.catch) p.catch(function () {}); return; }
+  if (mode === "standby") { setState('<span class="warn">متبادل آڈیو دستیاب نہیں — اگلے بلیٹن کا انتظار کریں</span>'); return; }
+  setState('<span class="warn">آڈیو چلنے میں ناکامی</span> — <a href="#" id="errBackup" style="color:#ffd9a8">متبادل پیغام سنیں</a>');
+  var b = document.getElementById("errBackup");
+  if (b) b.addEventListener("click", function (e) { e.preventDefault(); playStandby(null); });
+});
+
+/* ---------- rendering ---------- */
+function stateFor(rec, idx, curIdx) {
+  var st = effStatus(rec);
+  if (st === "cancelled") return { cls: "cancel", txt: "منسوخ شدہ" };
+  if (idx < curIdx) return st === "published" ? { cls: "done", txt: "مکمل شدہ" } : { cls: "soon", txt: "نشر نہیں ہوا" };
+  if (idx === curIdx) return { cls: "live", txt: "براہِ راست — جاری" };
+  if (idx === curIdx + 1) return { cls: "next", txt: "اگلا" };
+  return { cls: "soon", txt: "مقررہ وقت پر دستیاب ہوگا" };
+}
+function cardHTML(rec, idx, curIdx) {
+  var st = stateFor(rec, idx, curIdx);
+  var canPlay = effStatus(rec) === "published" && rec.audio;
+  var hl = "";
+  if (rec.headlines && rec.headlines.length) {
+    hl = '<ul class="headlines">' + rec.headlines.map(function (h) { return "<li>" + esc(h) + "</li>"; }).join("") + "</ul>";
+  }
+  var btn = canPlay
+    ? '<button class="btn gold" data-replay="' + esc(rec.id) + '">▶ بلیٹن سنیں — دوبارہ</button>'
+    : '<button class="btn" disabled>' + (effStatus(rec) === "cancelled" ? "منسوخ شدہ" : "تیاری جاری ہے") + "</button>";
+  var share = canPlay ? '<button class="btn ghost" data-share="' + esc(rec.id) + '">لنک شیئر کریں</button>' : "";
+  return '<article class="card' + (idx === curIdx ? " live-now" : "") + (idx === curIdx + 1 ? " next" : "") +
+    '" id="card-' + esc(rec.id) + '">' +
+    '<div class="top"><span class="time">' + esc(rec.time) + '</span>' +
+    '<span class="title">' + esc(typeLabel(rec.type)) + '</span>' +
+    '<span class="durbadge">' + fmtDur(rec.durationSec || 0) + '</span>' +
+    '<span class="state ' + st.cls + '">' + st.txt + '</span></div>' +
+    '<div class="orgline"><span class="ltr">WORLD NEWS DESK</span> • ' + esc(rec.organization) + " • " + esc(rec.category || "") + '</div>' +
+    hl +
+    (rec.sourceNote ? '<div class="src">' + esc(rec.sourceNote) + '</div>' : "") +
+    '<div class="actions">' + btn + share + '</div></article>';
+}
+function bindCardButtons(root) {
+  var rb = root.querySelectorAll("[data-replay]");
+  for (var i = 0; i < rb.length; i++) rb[i].addEventListener("click", function () {
+    var rec = findRec(this.getAttribute("data-replay")); if (rec) playReplay(rec);
+  });
+  var sb = root.querySelectorAll("[data-share]");
+  for (var j = 0; j < sb.length; j++) sb[j].addEventListener("click", function () {
+    var url = location.href.split("#")[0] + "#b=" + this.getAttribute("data-share");
+    if (navigator.share) { navigator.share({ title: "WORLD NEWS DESK", url: url }).catch(function () {}); }
+    else if (navigator.clipboard) { var b = this; navigator.clipboard.writeText(url).then(function () { b.textContent = "لنک کاپی ہو گیا ✓"; }); }
+  });
+}
+function findRec(id) {
+  for (var i = 0; i < MANIFEST.bulletins.length; i++) if (MANIFEST.bulletins[i].id === id) return MANIFEST.bulletins[i];
+  return null;
+}
+function render() {
+  var p = pktParts(new Date());
+  var slot = slotOf(p);
+  /* now-playing header (repeat mode owns the header: it names the repeated bulletin) */
+  if (mode !== "replay" && mode !== "repeat") {
+    var cur = slotRecord(p.date, slot.idx);
+    document.getElementById("npKicker").textContent = "اس وقت نشر ہونے والا پروگرام";
+    document.getElementById("npTitle").textContent = typeLabel(cur.type) + " — " + cur.time;
+    document.getElementById("npOrg").textContent = cur.organization + " • عالمی خبریں • اردو سروس";
+  }
+  /* today's cards: from two slots back to end of day */
+  var html = "";
+  var startIdx = Math.max(0, slot.idx - 2);
+  for (var idx = startIdx; idx < 48; idx++) html += cardHTML(slotRecord(p.date, idx), idx, slot.idx);
+  var tl = document.getElementById("todayList");
+  tl.innerHTML = html; bindCardButtons(tl);
+  /* future manifest entries */
+  var fut = MANIFEST.bulletins.filter(function (b) { return b.date > p.date; });
+  document.getElementById("futureList").innerHTML = fut.length
+    ? fut.map(function (b) {
+        return '<article class="card"><div class="top"><span class="time">' + esc(b.time) + '</span>' +
+          '<span class="title">' + esc(typeLabel(b.type)) + '</span><span class="durbadge">' + fmtDur(b.durationSec || 0) + '</span>' +
+          '<span class="state soon">' + esc(b.date) + ' — مقررہ وقت پر دستیاب ہوگا</span></div>' +
+          '<div class="orgline">' + esc(b.organization) + " • " + esc(b.category || "") + '</div>' +
+          (b.sourceNote ? '<div class="src">' + esc(b.sourceNote) + '</div>' : "") + '</article>';
+      }).join("")
+    : '<div class="empty">—</div>';
+  /* archive: published records not in today's remaining list + past records */
+  var arch = MANIFEST.bulletins.filter(function (b) {
+    return effStatus(b) === "published" && (b.date < p.date || (b.date === p.date && b.time < slotTimeStr(Math.max(0, slot.idx - 2))));
+  });
+  document.getElementById("archiveList").innerHTML = arch.length
+    ? arch.map(function (b) {
+        return '<div class="archrow"><span class="t">' + esc(b.time) + '</span>' +
+          '<span class="n">' + esc(typeLabel(b.type)) + " — " + esc(b.organization) +
+          '<small>' + esc(b.date) + " • " + fmtDur(b.durationSec || 0) + (b.demo ? " • آزمائشی نمونہ" : "") + '</small></span>' +
+          '<button class="mini" data-replay="' + esc(b.id) + '" aria-label="دوبارہ سنیں">▶</button></div>';
+      }).join("")
+    : '<div class="empty">ابھی آرکائیو خالی ہے</div>';
+  bindCardButtons(document.getElementById("archiveList"));
+  /* share-link highlight */
+  var m = location.hash.match(/#b=([\w-]+)/);
+  if (m) { var el = document.getElementById("card-" + m[1]); if (el) { el.classList.add("highlight"); el.scrollIntoView({ block: "center" }); } }
+}
+
+/* ---------- per-second ticker ---------- */
+function tick() {
+  var now = new Date();
+  var p = pktParts(now);
+  var slot = slotOf(p);
+  document.getElementById("pktClock").textContent =
+    "پاکستان وقت: " + p.date + " — " + pad2(p.h) + ":" + pad2(p.m) + ":" + pad2(p.s);
+  var nextIdx = slot.idx + 1;
+  var nextTxt = nextIdx < 48 ? slotTimeStr(nextIdx) : "00:00";
+  document.getElementById("pCountdown").textContent =
+    "اگلا بلیٹن " + nextTxt + " پر — " + fmtClock(slot.remain) + " باقی";
+  var bar = document.getElementById("pBar");
+  if ((mode === "replay" || mode === "repeat") && audio.duration) bar.style.width = (audio.currentTime / audio.duration * 100) + "%";
+  else bar.style.width = (slot.elapsed / SLOT_SEC * 100) + "%";
+  /* auto-advance at a slot boundary */
+  if ((mode === "live" || mode === "repeat" || mode === "standby") && currentSlotKey && currentSlotKey !== slot.key) {
+    if (!livePlaying) { currentSlotKey = slot.key; }
+    else {
+      var nrec = slotRecord(p.date, slot.idx);
+      if (effStatus(nrec) === "published" && nrec.audio) routeLive();  /* fresh bulletin: cut to live, repeat label cleared */
+      else if (mode === "live") routeLive();                            /* was live -> REPEAT-FILL (or standby if archive empty) */
+      else currentSlotKey = slot.key;                                   /* repeat/standby: keep filling, countdown already updated */
+    }
+  }
+  /* safety net: live audio finished before slot end -> REPEAT-FILL */
+  if (mode === "live" && audio.ended) routeLive();
+}
+
+/* ---------- boot ---------- */
+fetch("bulletins.json", { cache: "no-store" })
+  .then(function (r) { return r.json(); })
+  .then(function (j) { MANIFEST = j; render(); tick(); setInterval(tick, 1000); setInterval(render, 60000); })
+  .catch(function () {
+    document.getElementById("npTitle").textContent = "شیڈول لوڈ نہیں ہو سکا";
+    setState('<span class="warn">ڈیٹا لوڈ کرنے میں ناکامی — صفحہ تازہ کریں</span>');
+  });
+</script>
+</body>
+</html>
